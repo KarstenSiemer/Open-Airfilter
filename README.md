@@ -7,9 +7,19 @@ Like being extremly silent or setting up schedules on when i want it to not run 
 That is why i decided to just create my own and of course share my work.
 
 Here are two pictures of it. (as an excuse, i am really not talented when it comes to working with wood)
+![front view of the filter](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/picture1.jpg)
+![insides of the filter](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/picture2.jpg)
 
+This is how your grafana dashboard will look like:
+* coming soon
 
-What i have used to build this:
+## How to wire it up
+* coming soon
+
+## How configure
+* coming soon
+
+## What i have used to build this:
 * raspberry pi 3 b+
   * this is overpowered for an airfilter, but i chose to put the whole stack on it, so it needs at least some beef
 * Noctua NF-A14 5V PWM
@@ -27,3 +37,16 @@ What i have used to build this:
 * a box to place the components in (i used wood)
 * optional: CCS811 HDC1080 sensor
   * nice way to get even more information about the air you breath in every day.
+* optional: Breadboard
+  * i added in advance, just in case i want to add more sensors
+  
+## Architecture
+* coming soon
+
+## Special Thanks to
+* carlosedp
+  * for supplying prometheus, node- and arm exporter images for the armv7l architecture
+* Petr Lukas
+  * For the classes of the ccs811 and hdc1080
+* Scott Ellis
+  * For the pwm class
