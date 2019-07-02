@@ -20,28 +20,34 @@ This is how your grafana dashboard will look like:
 * coming soon
 
 ## What i have used to build this:
-* raspberry pi 3 b+
-  * this is overpowered for an airfilter, but i chose to put the whole stack on it, so it needs at least some beef
+* Raspberry pi 3 b+
+  * This is overpowered for an airfilter, but i chose to put the whole stack on it, so it needs at least some beef
 * Noctua NF-A14 5V PWM
   * I chose this because i do not have to change voltage to use it
   * You can use any fan of any size, just make sure that it can be used it PWM
 * Nova PM Sensor SDS011 High Precision PM2.5
   * Most accurate sensor on consumer maket (to my knowledge)
   * But it has the downside that it needs a fan to suck fresh air into it's chamber (sadly, i can hear it sometimes)
-  * also take some tubing to elongate the the rod where it sucks in air, so you can directly suck from the airflow of the fans 
+  * Also take some tubing to elongate the the rod where it sucks in air, so you can directly suck from the airflow of the fans 
 * 140mm fan grill
-  * for the backside of the airfilter to fight of hughe dust particles and protect the inside wiring
+  * For the backside of the airfilter to fight of hughe dust particles and protect the inside wiring
 * HEPA-Filter
-  * mine is square (17 x 17 x 6 cm)
-* some eva feed to put the wooden box on
-* a box to place the components in (i used wood)
-* optional: CCS811 HDC1080 sensor
-  * nice way to get even more information about the air you breath in every day.
-* optional: Breadboard
-  * i added in advance, just in case i want to add more sensors
+  * Mine is square (17 x 17 x 6 cm)
+* Some eva feed to put the wooden box on
+* A box to place the components in (i used wood)
+* Optional: CCS811 HDC1080 sensor
+  * Nice way to get even more information about the air you breath in every day.
+* Optional: Breadboard
+  * I added in advance, just in case i want to add more sensors
   
 ## Architecture
 * coming soon
+
+## ToDo
+* Improve the exporter
+  * gathering metrics for each sensor should be run in parallel
+* Improve Images
+  * Due to nasty bug in kernel up to 4.19 (latest you can go with raspi-update right now), udev rules are not hooked where i need them
 
 ## Special Thanks to
 * carlosedp
