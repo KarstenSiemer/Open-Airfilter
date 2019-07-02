@@ -1,0 +1,29 @@
+FROM python:3.7-slim-stretch
+
+COPY pwm ./pwm
+COPY fan-controller.py .
+
+ENV PWM0_PERIOD=40000
+ENV PWM1_PERIOD=40000
+ENV WEEK_RANGE=6
+ENV WORK_HOURS_FROM=10
+ENV WORK_HOURS_UNTIL=17
+ENV WEEK_HOME_FROM=17
+ENV WEEK_HOME_UNTIL=25
+ENV WEEK_END_HOME_FROM=10
+ENV WEEK_END_HOME_UNTIL=24
+ENV SPEED1=3000
+ENV SPEED2=5000
+ENV SPEED3=10000
+ENV SPEED4=15000
+ENV SPEED5=20000
+ENV SPEED6=25000
+ENV POLLUTION1=3
+ENV POLLUTION2=5
+ENV POLLUTION3=10
+ENV POLLUTION4=20
+ENV POLLUTION5=30
+ENV POLLUTION6=40
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+CMD ["python3", "-u", "fan-controller.py", "http://prometheus:9090", "sum(avg_over_time(airfilter_dust[10m]))"]

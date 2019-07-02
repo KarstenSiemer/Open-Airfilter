@@ -1,0 +1,143 @@
+version: '2'
+
+networks:
+  monitor-net:
+    driver: bridge
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+    nodeexporter: {}
+
+services:
+
+  prometheus:
+    image: carlosedp/prometheus:v2.9.2
+    container_name: prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: always
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
+  nodeexporter:
+    image: carlosedp/node_exporter:v0.17.0
+    container_name: nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+      - ./node-exporter:/etc/node-exporter
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+      - '--collector.processes'
+      - '--collector.textfile.directory=/etc/node-exporter/'
+    restart: always
+    expose:
+      - 9100
+    ports:
+      - "9100:9100"
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
+  grafana:
+    image: grafana/grafana:6.1.3
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/datasources:/etc/grafana/datasources
+      - ./grafana/dashboards:/etc/grafana/dashboards
+      - ./grafana/setup.sh:/setup.sh
+    entrypoint: /setup.sh
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: always
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
+  armexporter:
+    image: carlosedp/arm_exporter
+    restart: unless-stopped
+    ports:
+      - 9243
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
+  airfilterexporter:
+    image: airfilter/exporter
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /dev/:/dev/
+    ports:
+      - "9600:9600"
+    expose:
+      - 9600
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
+  airfilterfancontroller:
+    image: airfilter/fan_controller
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /sys/class/pwm/:/sys/class/pwm/
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+    command: ["python3", "-u", "fan-controller.py", "http://prometheus:9090" ,"sum(avg_over_time(airfilter_dust[10m]))"]
+    #command: ["sleep", "1000"]
+    environment:
+      - PWM0_PERIOD=40000
+      - PWM1_PERIOD=40000
+      - WEEK_RANGE=6
+      - WORK_HOURS_FROM=8
+      - WORK_HOURS_UNTIL=15
+      - WEEK_HOME_FROM=17
+      - WEEK_HOME_UNTIL=25
+      - WEEK_END_HOME_FROM=8
+      - WEEK_END_HOME_UNTIL=24
+      - SPEED1=5000
+      - SPEED2=9000
+      - SPEED3=12000
+      - SPEED4=18000
+      - SPEED5=25000
+      - SPEED6=30000
+      - POLLUTION1=3
+      - POLLUTION2=5
+      - POLLUTION3=10
+      - POLLUTION4=20
+      - POLLUTION5=30
+      - POLLUTION6=40
