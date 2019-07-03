@@ -43,14 +43,15 @@ Also you can configure the targets of the prometheus in `/airfilter-manifest/pro
 Important here are the parameters with which prometheus is scraping the exporter, because they are actively configuring it.
 There are three options here:
 * sds011
-  * where can the exporter find the sds011 sensor (Default: '/dev/ttyUSB0')
+  * where can the exporter find the sds011 sensor 
+   (Default: '/dev/ttyUSB0')
 * sleep
   * This controls how long the fan spins inside the sds011 sensor chamber before a measurement is made.
-  * Generally you want a time that is long enough to exchange all the air in the chamber for accurate measurements (Default: 15)
+  * Generally you want a time that is long enough to exchange all the air in the chamber for accurate measurements (Default: 15 seconds)
 * ccs811
   * This activates the optional ccs811 sensor
 
-You can also change the retentiontime of the Prometheus. Currently set is the default of 200h
+You can also change the retention time of the Prometheus. Currently set is the default of 200h
   
 You could also build the containers yourself (Dockerfiles are included) and directly set the environment variables inside the containers, if you happen to not wanting to use docker-compose
   
