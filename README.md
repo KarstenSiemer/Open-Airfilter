@@ -75,6 +75,8 @@ You could also build the containers yourself (Dockerfiles are included) and dire
   * Nice way to get even more information about the air you breath in every day.
 * Optional: Breadboard
   * I added in advance, just in case i want to add more sensors
+* Optional: some kind of rubber cushioning/bands
+  * This prevents vibration sounds from the spinning fans.
 
 ## Architecture
 ![architecure](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/architecure.png)
