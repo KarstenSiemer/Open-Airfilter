@@ -86,6 +86,8 @@ You could also build the containers yourself (Dockerfiles are included) and dire
   * gathering metrics for each sensor should be run in parallel
 * Improve Images to not being privileged
   * Due to nasty bug in kernel up to 4.19 (latest you can go with raspi-update right now), udev rules are not hooked where i need them
+* Use control wires of pwm to monitor fan health
+* clean up wiring and take better pictures 
 
 ## Special Thanks to
 * carlosedp
