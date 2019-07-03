@@ -1,0 +1,30 @@
+# HELP airfilter_dust dust of size 2,5
+# TYPE airfilter_dust gauge
+airfilter_dust{pm="2.5",sensor="sds011"} 9.80
+# HELP airfilter_dust dust of size 10
+# TYPE airfilter_dust gauge
+airfilter_dust{pm="10",sensor="sds011"} 5.70
+# HELP airfilter_humidity humidity reading
+# TYPE airfilter_humidity gauge
+airfilter_humidity{sensor="ccs811"} 39.53857421875
+# HELP airfilter_temperature temperature reading
+# TYPE airfilter_temperature gauge
+airfilter_temperature{sensor="ccs811"} 27.80670166015625
+# HELP airfilter_statusbyte statusbyte
+# TYPE airfilter_statusbyte gauge
+airfilter_statusbyte{sensor="ccs811",statusbyte="0b10011000"} 1.0
+# HELP airfilter_error 1 if error on sensor
+# TYPE airfilter_error gauge
+airfilter_error{sensor="ccs811"} 0.0
+# HELP airfilter_samples 0 if no new samples
+# TYPE airfilter_samples gauge
+airfilter_samples{sensor="ccs811"} 1.0
+# HELP airfilter_result 1 if valid result
+# TYPE airfilter_result gauge
+airfilter_result{sensor="ccs811"} 1.0
+# HELP airfilter_eco2 eco2 reading
+# TYPE airfilter_eco2 gauge
+airfilter_eco2{sensor="ccs811",unit="ppm"} 400.0
+# HELP airfilter_tvoc tvoc reading
+# TYPE airfilter_tvoc gauge
+airfilter_tvoc{sensor="ccs811",unit="ppb"} 0.0
