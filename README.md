@@ -41,7 +41,7 @@ This is how your grafana dashboard will look like:
   * I added in advance, just in case i want to add more sensors
 
 ## Architecture
-![architecure](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/architecture.png)
+![architecure](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/architecure.png)
 
 ## ToDo
 * Improve the exporter
