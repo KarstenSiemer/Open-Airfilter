@@ -36,7 +36,7 @@ In `command` the second argument given to the python script is the query that th
 In the environment variables you can set:
 * The [periods](https://en.wikipedia.org/wiki/Pulse-width_modulation) of your fans
 * The time ranges for the modes
-* The speed of your fans in six levels
+* The speed of your fans in six levels (this is relative to the period)
 * When an amount of pollution maps to which level
 
 Also you can configure the targets of the prometheus in `/airfilter-manifest/prometheus/prometheus.yml`
