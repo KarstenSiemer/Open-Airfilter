@@ -1,8 +1,8 @@
 # Open-Airfilter
-Opensource airfiltering system for your home
+Opensource air filtering system for your home
 
 Since i have problems with pollen in summer i wanted to buy an airfiltering system, but failed to find one that suits my needs.
-Like being extremly silent or setting up schedules on when i want it to not run or that it should be even more silent when i want to go to sleep.
+Like being extremely silent or setting up schedules on when i want it to not run or that it should be even more silent when i want to go to sleep.
 
 That is why i decided to just create my own and of course share my work.
 
@@ -22,7 +22,7 @@ Which just means to take a range vector of five minutes of all instances of the 
 You could create queries that include data of more sensors and calculate the AQI (Air quality Index) for example and control your fans based on that. But i have found that to be unnecessary, since the only stuff i can filter is dust anyway.
 You could however add an alertmanager to the docker-compose manifest and create prometheus alerts if some gas concentration is too high and send yourself an alert to open a window. 
 
-If you also use the ccs811 sensor there are already dashboards prepared to monitor humidity, temperature, eco2 (equivalent calculated carbon-dioxide, within a range of 400 to 8192 parts per million (ppm)) and tvoc (Total Volatile Organic Compound) concentration within a range of 0 to 1187 parts per billion (ppb))
+If you also use the ccs811 sensor there are already dashboards prepared to monitor humidity, temperature, eco2 (equivalent calculated carbon-dioxide, within a range of 400 to 8192 parts per million (ppm)) and tvoc (Total Volatile Organic Compound) concentration within a range of 0 to 1187 parts per billion (ppb)).
 
 ## How to wire it up
 * coming soon
@@ -40,12 +40,12 @@ In the environment variables you can set:
 * When an amount of pollution maps to which level
 
 Also you can configure the targets of the prometheus in `/airfilter-manifest/prometheus/prometheus.yml`
-Important here are the parameters with which prometheus is scraping the exporter, becauset they are actively configuring it.
+Important here are the parameters with which prometheus is scraping the exporter, because they are actively configuring it.
 There are three options here:
 * sds011
   * where can the exporter find the sds011 sensor (Default: '/dev/ttyUSB0')
 * sleep
-  * This controlls how long the fan spins inside the sds011 sensor chamber before a measurement is made.
+  * This controls how long the fan spins inside the sds011 sensor chamber before a measurement is made.
   * Generally you want a time that is long enough to exchange all the air in the chamber for accurate measurements (Default: 15)
 * ccs811
   * This activates the optional ccs811 sensor
@@ -60,11 +60,11 @@ You can also build the containers yourself (Dockerfiles are included) and direct
   * I chose this because i do not have to change voltage to use it
   * You can use any fan of any size, just make sure that it can be used it PWM
 * Nova PM Sensor SDS011 High Precision PM2.5
-  * Most accurate sensor on consumer maket (to my knowledge)
+  * Most accurate sensor on consumer market (to my knowledge)
   * But it has the downside that it needs a fan to suck fresh air into it's chamber (sadly, i can hear it sometimes)
   * Also take some tubing to elongate the the rod where it sucks in air, so you can directly suck from the airflow of the fans
 * 140mm fan grill
-  * For the backside of the airfilter to fight of hughe dust particles and protect the inside wiring
+  * For the backside of the airfilter to fight of huge dust particles and protect the inside wiring
 * HEPA-Filter
   * Mine is square (17 x 17 x 6 cm)
 * Some eva feed to put the wooden box on
