@@ -49,9 +49,10 @@ There are three options here:
   * Generally you want a time that is long enough to exchange all the air in the chamber for accurate measurements (Default: 15)
 * ccs811
   * This activates the optional ccs811 sensor
-You can also change the retentiontime of the prometheus, currently set is the default of 200h
+
+You can also change the retentiontime of the Prometheus. Currently set is the default of 200h
   
-You can also build the containers yourself (Dockerfiles are included) and directly set the environment variables inside the containers, if you happen to not wanting to use docker-compose
+You could also build the containers yourself (Dockerfiles are included) and directly set the environment variables inside the containers, if you happen to not wanting to use docker-compose
   
 ## What i have used to build this:
 * Raspberry pi 3 b+
