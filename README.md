@@ -19,16 +19,40 @@ data is summed and averaged. This is done so that i have a singular point of ori
 
 Which just means to take a range vector of five minutes of all instances of the metric `airfilter_dust`, of which there are two (pm 2,5 and 10) and calculate an average for each scrape point. Then sum the results together.
 
-You could create queries that include data of more sensors and calculate the AQI (Air quality Index) for example and control your fans based on that. But i have found that to unnecessary, since the only stuff i can filter is dust anyway.
+You could create queries that include data of more sensors and calculate the AQI (Air quality Index) for example and control your fans based on that. But i have found that to be unnecessary, since the only stuff i can filter is dust anyway.
 You could however add an alertmanager to the docker-compose manifest and create prometheus alerts if some gas concentration is too high and send yourself an alert to open a window. 
 
+If you also use the ccs811 sensor there are already dashboards prepared to monitor humidity, temperature, eco2 (equivalent calculated carbon-dioxide, within a range of 400 to 8192 parts per million (ppm)) and tvoc (Total Volatile Organic Compound) concentration within a range of 0 to 1187 parts per billion (ppb))
 
 ## How to wire it up
 * coming soon
 
 ## How configure
+The main configuration can be done in `/airfilter-manifest/docker-compose.yaml`
+Here you can configure the fan controller in the service `airfilterfancontroller`
 
+In `command` the second argument given to the python script is the query that the controller will use to get information from prometheus on how polluted the air is.
 
+In the environment variables you can set:
+* The [periods](https://en.wikipedia.org/wiki/Pulse-width_modulation) of your fans
+* The time ranges for the modes
+* The speed of your fans in six levels
+* When an amount of pollution maps to which level
+
+Also you can configure the targets of the prometheus in `/airfilter-manifest/prometheus/prometheus.yml`
+Important here are the parameters with which prometheus is scraping the exporter, becauset they are actively configuring it.
+There are three options here:
+* sds011
+  * where can the exporter find the sds011 sensor (Default: '/dev/ttyUSB0')
+* sleep
+  * This controlls how long the fan spins inside the sds011 sensor chamber before a measurement is made.
+  * Generally you want a time that is long enough to exchange all the air in the chamber for accurate measurements (Default: 15)
+* ccs811
+  * This activates the optional ccs811 sensor
+You can also change the retentiontime of the prometheus, currently set is the default of 200h
+  
+You can also build the containers yourself (Dockerfiles are included) and directly set the environment variables inside the containers, if you happen to not wanting to use docker-compose
+  
 ## What i have used to build this:
 * Raspberry pi 3 b+
   * This is overpowered for an airfilter, but i chose to put the whole stack on it, so it needs at least some beef
