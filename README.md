@@ -28,7 +28,7 @@ This is how your grafana dashboard will look like:
 * Nova PM Sensor SDS011 High Precision PM2.5
   * Most accurate sensor on consumer maket (to my knowledge)
   * But it has the downside that it needs a fan to suck fresh air into it's chamber (sadly, i can hear it sometimes)
-  * Also take some tubing to elongate the the rod where it sucks in air, so you can directly suck from the airflow of the fans 
+  * Also take some tubing to elongate the the rod where it sucks in air, so you can directly suck from the airflow of the fans
 * 140mm fan grill
   * For the backside of the airfilter to fight of hughe dust particles and protect the inside wiring
 * HEPA-Filter
@@ -39,9 +39,9 @@ This is how your grafana dashboard will look like:
   * Nice way to get even more information about the air you breath in every day.
 * Optional: Breadboard
   * I added in advance, just in case i want to add more sensors
-  
+
 ## Architecture
-* coming soon
+![architecure](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/architecture.png)
 
 ## ToDo
 * Improve the exporter
