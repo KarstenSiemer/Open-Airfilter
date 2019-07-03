@@ -41,12 +41,12 @@ This is how your grafana dashboard will look like:
   * I added in advance, just in case i want to add more sensors
 
 ## Architecture
-![architecure](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/architecture.png)
+![architecure](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/architecure.png)
 
 ## ToDo
 * Improve the exporter
   * gathering metrics for each sensor should be run in parallel
-* Improve Images
+* Improve Images to not being privileged
   * Due to nasty bug in kernel up to 4.19 (latest you can go with raspi-update right now), udev rules are not hooked where i need them
 
 ## Special Thanks to
