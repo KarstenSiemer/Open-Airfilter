@@ -27,7 +27,7 @@ If you also use the ccs811 sensor there are already dashboards prepared to monit
 ## How to wire it up
 * coming soon
 
-## How configure
+## How to configure
 The main configuration can be done in `/airfilter-manifest/docker-compose.yaml`
 Here you can configure the fan controller in the service `airfilterfancontroller`
 
