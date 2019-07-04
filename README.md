@@ -81,6 +81,55 @@ You could also build the containers yourself (Dockerfiles are included) and dire
 ## Architecture
 ![architecure](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/architecure.png)
 
+## Logging
+You can find detailed logs for the controller inside the container using `docker logs`
+It shows you the exact request it did to query Prometheus. Maybe you want to url decode it, if you want to make sure whether or not the correct query was made.
+Also there is a block that shows the response from Prometheus and a block for the schedule the value fell in.
+Here is an example log:
+```
+---------REQUEST---------
+POST http://prometheus:9090/api/v1/query
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 57
+
+query=sum%28avg_over_time%28airfilter_dust%5B10m%5D%29%29
+-----------END-----------
+---------RESPONSE--------
+status_code: 
+200
+headers: 
+Content-Type: application/json
+Date: Thu, 04 Jul 2019 04:53:03 GMT
+Content-Length: 108
+body: 
+{
+    "status": "success",
+    "data": {
+        "resultType": "vector",
+        "result": [
+            {
+                "metric": {},
+                "value": [
+                    1562215983.125,
+                    "5.17"
+                ]
+            }
+        ]
+    }
+}
+-----------END-----------
+----------SCHED----------
+schedule_range: WEEK_RANGE
+schedule_hours: ELSE
+pollution: POLLUTION2
+speed: SPEED2
+-----------END-----------
+```
+The exporter also has a request log which shows the http status requests.
+```
+172.21.0.7 - - [04/Jul/2019 04:59:27] "GET /sensors?ccs811=true&sds011=%2Fdev%2FttyUSB0&sleep=10 HTTP/1.1" 200 -
+```
+
 ## ToDo
 * Improve the exporter
   * gathering metrics for each sensor should be run in parallel
