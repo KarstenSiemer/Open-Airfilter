@@ -69,6 +69,7 @@ You could also build the containers yourself (Dockerfiles are included) and dire
   * For the backside of the airfilter to fight of huge dust particles and protect the inside wiring
 * HEPA-Filter
   * Mine is square (17 x 17 x 6 cm)
+  * I'd recomment one with four stages of filtration (Pre-Filter, HEPA-Filter, Carbon-Filter, Sterilization-Cotton)
 * Some eva feed to put the wooden box on
 * A box to place the components in (i used wood)
 * Optional: CCS811 HDC1080 sensor
