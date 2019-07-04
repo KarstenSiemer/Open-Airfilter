@@ -138,6 +138,7 @@ The exporter also has a request log which shows the http status requests.
   * Due to nasty bug in kernel up to 4.19 (latest you can go with raspi-update right now), udev rules are not hooked where i need them
 * Use control wires of pwm to monitor fan health
 * clean up wiring and take better pictures 
+* clean up the controllers script (create function to print and activate)
 
 ## Special Thanks to
 * carlosedp
