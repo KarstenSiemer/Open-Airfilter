@@ -25,7 +25,16 @@ You could however add an alertmanager to the docker-compose manifest and create 
 If you also use the ccs811 sensor there are already dashboards prepared to monitor humidity, temperature, eco2 (equivalent calculated carbon-dioxide, within a range of 400 to 8192 parts per million (ppm)) and tvoc (Total Volatile Organic Compound) concentration within a range of 0 to 1187 parts per billion (ppb)).
 
 ## How to wire it up
-* coming soon
+The Raspberry Pi 3 b+ has four PWM pins but only two channels, so be aware when wiring the fans up.
+I used pin 12 (PWM0) and pin 35 (PWN1).
+
+If you have 5V fans you can directly connect them to Pi's connectors.
+I used pin 2 and pin 4.
+
+Also connect them to ground pins.
+I used pin 6 and pin 39.
+
+The control wire of your PWM fans is not used right now. I want to implement monitoring using those connections in the exporter later on.
 
 ## How to configure
 The main configuration can be done in `/airfilter-manifest/docker-compose.yaml`
