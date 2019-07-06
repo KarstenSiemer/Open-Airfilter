@@ -36,6 +36,8 @@ I used pin 6 and pin 39.
 
 The control wire of your PWM fans is not used right now. I want to implement monitoring using those connections in the exporter later on.
 
+Connect the sds011 by simply plugging it into USB. If you have more than one USB device connect, check to which ttyUSB it is connected. If it is not the default `/dev/ttyUSB0` then change the parameter for the sensor in the prometheus scrape targets.
+
 ## How to configure
 The main configuration can be done in `/airfilter-manifest/docker-compose.yaml`
 Here you can configure the fan controller in the service `airfilterfancontroller`
