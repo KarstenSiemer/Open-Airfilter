@@ -1,8 +1,8 @@
 # Open-Airfilter
-Opensource airfiltering system for your home
+Opensource air filtering system for your home
 
 Since i have problems with pollen in summer i wanted to buy an airfiltering system, but failed to find one that suits my needs.
-Like being extremly silent or setting up schedules on when i want it to not run or that it should be even more silent when i want to go to sleep.
+Like being extremely silent or setting up schedules on when i want it to not run or that it should be even more silent when i want to go to sleep.
 
 That is why i decided to just create my own and of course share my work.
 
@@ -19,15 +19,49 @@ data is summed and averaged. This is done so that i have a singular point of ori
 
 Which just means to take a range vector of five minutes of all instances of the metric `airfilter_dust`, of which there are two (pm 2,5 and 10) and calculate an average for each scrape point. Then sum the results together.
 
-You could create queries that include data of more sensors and calculate the AQI (Air quality Index) for example and control your fans based on that. But i have found that to unnecessary, since the only stuff i can filter is dust anyway.
+You could create queries that include data of more sensors and calculate the AQI (Air quality Index) for example and control your fans based on that. But i have found that to be unnecessary, since the only stuff i can filter is dust anyway.
 You could however add an alertmanager to the docker-compose manifest and create prometheus alerts if some gas concentration is too high and send yourself an alert to open a window. 
 
+If you also use the ccs811 sensor there are already dashboards prepared to monitor humidity, temperature, eco2 (equivalent calculated carbon-dioxide, within a range of 400 to 8192 parts per million (ppm)) and tvoc (Total Volatile Organic Compound) concentration within a range of 0 to 1187 parts per billion (ppb)).
 
 ## How to wire it up
 * coming soon
 
-## How configure
+## How to configure
+The main configuration can be done in `/airfilter-manifest/docker-compose.yaml`
+Here you can configure the fan controller in the service `airfilterfancontroller`
 
+In `command` the second argument given to the python script is the query that the controller will use to get information from prometheus on how polluted the air is.
+
+In the environment variables you can set:
+* The [periods](https://en.wikipedia.org/wiki/Pulse-width_modulation) of your fans
+* The time ranges for the modes
+* The speed of your fans in six levels (this is relative to the period)
+* When an amount of pollution maps to which level
+
+Also you can configure the targets of the prometheus in `/airfilter-manifest/prometheus/prometheus.yml`
+Important here are the parameters with which prometheus is scraping the exporter, because they are actively configuring it.
+There are three options here:
+* sds011
+  * where can the exporter find the sds011 sensor 
+   (Default: '/dev/ttyUSB0')
+* sleep
+  * This controls how long the fan spins inside the sds011 sensor chamber before a measurement is made.
+  * Generally you want a time that is long enough to exchange all the air in the chamber for accurate measurements (Default: 15 seconds)
+* ccs811
+  * This activates the optional ccs811 sensor
+
+You can also change the retention time of the Prometheus. Currently set is the default of 200h
+  
+You could also build the containers yourself (Dockerfiles are included) and directly set the environment variables inside the containers, if you happen to not wanting to use docker-compose
+  
+#### Note the /boot/config.txt
+Since we are be using PWM to drive the fans, we'll have to activate it in the boot config by appending this to the config:
+`dtoverlay=pwm-2chan`
+
+If you want to use the optional ccs811 chip, you'll have to active i²c also. To this, just append this:
+
+`dtparam=i2c_arm=on`
 
 ## What i have used to build this:
 * Raspberry pi 3 b+
@@ -36,28 +70,83 @@ You could however add an alertmanager to the docker-compose manifest and create 
   * I chose this because i do not have to change voltage to use it
   * You can use any fan of any size, just make sure that it can be used it PWM
 * Nova PM Sensor SDS011 High Precision PM2.5
-  * Most accurate sensor on consumer maket (to my knowledge)
+  * Most accurate sensor on consumer market (to my knowledge)
   * But it has the downside that it needs a fan to suck fresh air into it's chamber (sadly, i can hear it sometimes)
   * Also take some tubing to elongate the the rod where it sucks in air, so you can directly suck from the airflow of the fans
 * 140mm fan grill
-  * For the backside of the airfilter to fight of hughe dust particles and protect the inside wiring
+  * For the backside of the airfilter to fight of huge dust particles and protect the inside wiring
 * HEPA-Filter
   * Mine is square (17 x 17 x 6 cm)
+  * I'd recomment one with four stages of filtration (Pre-Filter, HEPA-Filter, Carbon-Filter, Sterilization-Cotton)
 * Some eva feed to put the wooden box on
 * A box to place the components in (i used wood)
 * Optional: CCS811 HDC1080 sensor
   * Nice way to get even more information about the air you breath in every day.
 * Optional: Breadboard
   * I added in advance, just in case i want to add more sensors
+* Optional: some kind of rubber cushioning/bands
+  * This prevents vibration sounds from the spinning fans.
 
 ## Architecture
 ![architecure](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/architecure.png)
+
+## Logging
+You can find detailed logs for the controller inside the container using `docker logs`
+It shows you the exact request it did to query Prometheus. Maybe you want to url decode it, if you want to make sure whether or not the correct query was made.
+Also there is a block that shows the response from Prometheus and a block for the schedule the value fell in.
+Here is an example log:
+```
+---------REQUEST---------
+POST http://prometheus:9090/api/v1/query
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 57
+
+query=sum%28avg_over_time%28airfilter_dust%5B10m%5D%29%29
+-----------END-----------
+---------RESPONSE--------
+status_code: 
+200
+headers: 
+Content-Type: application/json
+Date: Thu, 04 Jul 2019 04:53:03 GMT
+Content-Length: 108
+body: 
+{
+    "status": "success",
+    "data": {
+        "resultType": "vector",
+        "result": [
+            {
+                "metric": {},
+                "value": [
+                    1562215983.125,
+                    "5.17"
+                ]
+            }
+        ]
+    }
+}
+-----------END-----------
+----------SCHED----------
+schedule_range: WEEK_RANGE
+schedule_hours: ELSE
+pollution: POLLUTION2
+speed: SPEED2
+-----------END-----------
+```
+The exporter also has a request log which shows the http status requests.
+```
+172.21.0.7 - - [04/Jul/2019 04:59:27] "GET /sensors?ccs811=true&sds011=%2Fdev%2FttyUSB0&sleep=10 HTTP/1.1" 200 -
+```
 
 ## ToDo
 * Improve the exporter
   * gathering metrics for each sensor should be run in parallel
 * Improve Images to not being privileged
   * Due to nasty bug in kernel up to 4.19 (latest you can go with raspi-update right now), udev rules are not hooked where i need them
+* Use control wires of pwm to monitor fan health
+* clean up wiring and take better pictures 
+* clean up the controllers script (create function to print and activate)
 
 ## Special Thanks to
 * carlosedp
