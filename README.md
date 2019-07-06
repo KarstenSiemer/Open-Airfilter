@@ -55,6 +55,14 @@ You can also change the retention time of the Prometheus. Currently set is the d
   
 You could also build the containers yourself (Dockerfiles are included) and directly set the environment variables inside the containers, if you happen to not wanting to use docker-compose
   
+#### Note the /boot/config.txt
+Since we are be using PWM to drive the fans, we'll have to activate it in the boot config by appending this to the config:
+`dtoverlay=pwm-2chan`
+
+If you want to use the optional ccs811 chip, you'll have to active i²c also. To this, just append this:
+
+`dtparam=i2c_arm=on`
+
 ## What i have used to build this:
 * Raspberry pi 3 b+
   * This is overpowered for an airfilter, but i chose to put the whole stack on it, so it needs at least some beef
