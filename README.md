@@ -36,6 +36,8 @@ I used pin 6 and pin 39.
 
 The control wire of your PWM fans is not used right now. I want to implement monitoring using those connections in the exporter later on.
 
+Either connect it directly or use a breadboard. If you want to connect more sensors, using the breadboard will benefit how tidy it looks and how much you can connect. Since with a breadboard you can share the power and ground pins.
+
 Connect the sds011 by simply plugging it into USB. If you have more than one USB device connect, check to which ttyUSB it is connected. If it is not the default `/dev/ttyUSB0` then change the parameter for the sensor in the prometheus scrape targets.
 
 ## How to configure
