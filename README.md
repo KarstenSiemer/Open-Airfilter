@@ -1,7 +1,7 @@
 # Open-Airfilter
 Opensource air filtering system for your home
 
-Since i have problems with pollen in summer i wanted to buy an airfiltering system, but failed to find one that suits my needs.
+Since i have problems with pollen in the summer i wanted to buy an air filtering system, but failed to find one that suits my needs.
 Like being extremely silent or setting up schedules on when i want it to not run or that it should be even more silent when i want to go to sleep.
 
 That is why i decided to just create my own and of course share my work.
@@ -26,7 +26,7 @@ If you also use the ccs811 sensor there are already dashboards prepared to monit
 
 ## How to wire it up
 The Raspberry Pi 3 b+ has four PWM pins but only two channels, so be aware when wiring the fans up.
-I used pin 12 (PWM0) and pin 35 (PWN1).
+I used pin 12 (PWM0) and pin 35 (PWM1).
 
 If you have 5V fans you can directly connect them to Pi's connectors.
 I used pin 2 and pin 4.
