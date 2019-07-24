@@ -160,6 +160,7 @@ The exporter also has a request log which shows the http status requests.
 * Use control wires of pwm to monitor fan health
 * clean up wiring and take better pictures 
 * clean up the controllers script (create function to print and activate)
+* remove vunerable packages that are not needed from base docker image
 
 ## Special Thanks to
 * carlosedp
