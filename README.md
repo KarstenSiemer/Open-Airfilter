@@ -17,7 +17,7 @@ data is summed and averaged. This is done so that i have a singular point of ori
 
 `sum(avg_over_time(airfilter_dust[10m]))`
 
-Which just means to take a range vector of five minutes of all instances of the metric `airfilter_dust`, of which there are two (pm 2,5 and 10) and calculate an average for each scrape point. Then sum the results together.
+Which just means to take a range vector of ten minutes of all instances of the metric `airfilter_dust`, of which there are two (pm 2,5 and 10) and calculate an average for each scrape point. Then sum the results together.
 
 You could create queries that include data of more sensors and calculate the AQI (Air quality Index) for example and control your fans based on that. But i have found that to be unnecessary, since the only stuff i can filter is dust anyway.
 You could however add an alertmanager to the docker-compose manifest and create prometheus alerts if some gas concentration is too high and send yourself an alert to open a window. 
@@ -160,6 +160,7 @@ The exporter also has a request log which shows the http status requests.
 * Use control wires of pwm to monitor fan health
 * clean up wiring and take better pictures 
 * clean up the controllers script (create function to print and activate)
+* remove vunerable packages that are not needed from base docker image
 
 ## Special Thanks to
 * carlosedp
