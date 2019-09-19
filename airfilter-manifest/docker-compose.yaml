@@ -12,7 +12,7 @@ volumes:
 services:
 
   prometheus:
-    image: carlosedp/prometheus:v2.9.2
+    image: prom/prometheus:v2.12.0
     container_name: prometheus
     volumes:
       - ./prometheus/:/etc/prometheus/
@@ -22,7 +22,7 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
-      - '--storage.tsdb.retention.time=200h'
+      - '--storage.tsdb.retention.size=25GB'
       - '--web.enable-lifecycle'
     restart: always
     expose:
@@ -35,7 +35,7 @@ services:
       org.label-schema.group: "monitoring"
 
   nodeexporter:
-    image: carlosedp/node_exporter:v0.17.0
+    image: prom/node-exporter:v0.18.1
     container_name: nodeexporter
     volumes:
       - /proc:/host/proc:ro
@@ -49,6 +49,9 @@ services:
       - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
       - '--collector.processes'
       - '--collector.textfile.directory=/etc/node-exporter/'
+      - '--collector.netstat.fields=(.*)'
+      - '--collector.vmstat.fields=(.*)'
+      - '--collector.interrupts'
     restart: always
     expose:
       - 9100
@@ -60,7 +63,7 @@ services:
       org.label-schema.group: "monitoring"
 
   grafana:
-    image: grafana/grafana:6.1.3
+    image: grafana/grafana:6.3.5
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
@@ -93,7 +96,7 @@ services:
       org.label-schema.group: "monitoring"
 
   airfilterexporter:
-    image: karstensiemer/airfilter-exporter
+    image: airfilter/exporter
     restart: unless-stopped
     privileged: true
     volumes:
@@ -108,7 +111,7 @@ services:
       org.label-schema.group: "monitoring"
 
   airfilterfancontroller:
-    image: karstensiemer/airfilter-controller
+    image: airfilter/fan_controller
     restart: unless-stopped
     privileged: true
     volumes:
