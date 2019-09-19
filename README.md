@@ -164,7 +164,7 @@ The exporter also has a request log which shows the http status requests.
 
 ## Special Thanks to
 * carlosedp
-  * for supplying prometheus, node- and arm exporter images for the armv7l architecture
+  * arm exporter image
 * Petr Lukas
   * For the classes of the ccs811 and hdc1080
 * Scott Ellis
