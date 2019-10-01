@@ -12,7 +12,7 @@ Here are two pictures of it. (as an excuse, i am really not talented when it com
 
 This is how your grafana dashboard will look like:
 ![grafana screenshot dust graphs](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/grafana-airfilter.png)
-Here you can see the most important graphs. One with the raw data that has been gathered by prometheus and the other were this
+Here you can see the most important graphs. One with the raw data that has been gathered by prometheus and the other where this
 data is summed and averaged. This is done so that i have a singular point of orientation of how fast (or even at all) i want to spin the fans. Prometheus makes creating such data very easy. The query for this looks like this right now:
 
 `sum(avg_over_time(airfilter_dust[10m]))`
