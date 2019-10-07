@@ -96,7 +96,7 @@ services:
       org.label-schema.group: "monitoring"
 
   airfilterexporter:
-    image: airfilter/exporter
+    image: karstensiemer/airfilter-exporter
     restart: unless-stopped
     privileged: true
     volumes:
@@ -111,7 +111,7 @@ services:
       org.label-schema.group: "monitoring"
 
   airfilterfancontroller:
-    image: airfilter/fan_controller
+    image: karstensiemer/airfilter-controller
     restart: unless-stopped
     privileged: true
     volumes:
