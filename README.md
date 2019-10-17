@@ -50,10 +50,10 @@ In the environment variables you can set:
 * The [periods](https://en.wikipedia.org/wiki/Pulse-width_modulation) of your fans
 * The time ranges for the modes
 * The speed of your fans in six levels (this is relative to the period)
-* When an amount of pollution maps to which level
+* Which amount of pollution maps to which level of fan speed
 
 Also you can configure the targets of the prometheus in `/airfilter-manifest/prometheus/prometheus.yml`
-Important here are the parameters with which prometheus is scraping the exporter, because they are actively configuring it.
+Important here are the parameters with which prometheus is scraping the exporter, because they are actively configuring the airfilter-exporter.
 There are three options here:
 * sds011
   * where can the exporter find the sds011 sensor 
@@ -64,7 +64,9 @@ There are three options here:
 * ccs811
   * This activates the optional ccs811 sensor
 
-You can also change the retention time of the Prometheus. Currently set to the default of 200h
+You can also change the retention time of the Prometheus. Either set it to a time range like 200h or configure retention based on the maximum size the timeseries database of prometheus is allowed to have like 25Gi. Or just set both like 1y and 25Gi, whatever happens first will be the chosen setting.
+
+Because the airfilter-exporter is being configured by the URL with which it is scraped, you can query it with different parameters each scrape. Like connecting several sensors to the pi and configuring additional targets in prometheus where a different USB port is chosen in the params.
   
 You could also build the containers yourself (Dockerfiles are included) and directly set the environment variables inside the containers, if you happen to not wanting to use docker-compose
   
