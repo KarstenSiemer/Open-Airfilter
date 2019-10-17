@@ -99,10 +99,13 @@ If you want to use the optional ccs811 chip, you'll have to active i²c also. To
   * This is more simple than it appears. By box is basically a canal with some standoffs infront and behind the filter. This fixates the filter and the fans and also places the fans directly into the middle of the filter, because they are a bit smaller than the filter
 * Optional: CCS811 HDC1080 sensor
   * Nice way to get even more information about the air you breath in every day.
+  * It gives information about temperature, humidity, co2 and tvoc
 * Optional: Breadboard
   * I added in advance, just in case i want to add more sensors
 * Optional: some kind of rubber cushioning/bands
   * This prevents vibration sounds from the spinning fans.
+  
+I bought everything at amazon, just search for the names of the components. Especially take some time to choose a HEPA-Filter. A round filter would complicate the build a lot.
 
 ## Architecture
 ![architecure](https://github.com/KarstenSiemer/Open-Airfilter/raw/master/pictures/architecure.png)
