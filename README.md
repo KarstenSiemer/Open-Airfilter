@@ -28,7 +28,7 @@ If you also use the ccs811 sensor there are already dashboards prepared to monit
 The Raspberry Pi 3 b+ has four PWM pins but only two channels, so be aware when wiring the fans up.
 I used pin 12 (PWM0) and pin 35 (PWM1).
 
-If you have 5V fans you can directly connect them to Pi's connectors.
+If you have 5V fans you can directly connect them to the Pi's connectors.
 I used pin 2 and pin 4.
 
 Also connect them to ground pins.
@@ -64,7 +64,7 @@ There are three options here:
 * ccs811
   * This activates the optional ccs811 sensor
 
-You can also change the retention time of the Prometheus. Currently set is the default of 200h
+You can also change the retention time of the Prometheus. Currently set to the default of 200h
   
 You could also build the containers yourself (Dockerfiles are included) and directly set the environment variables inside the containers, if you happen to not wanting to use docker-compose
   
@@ -82,6 +82,7 @@ If you want to use the optional ccs811 chip, you'll have to active i²c also. To
 * Noctua NF-A14 5V PWM
   * I chose this because i do not have to change voltage to use it
   * You can use any fan of any size, just make sure that it can be used it PWM
+  * I have used two fans because the filter is quite thick and with two air is being pushed and pulled. Which allows for more airflow through the filter 
 * Nova PM Sensor SDS011 High Precision PM2.5
   * Most accurate sensor on consumer market (to my knowledge)
   * But it has the downside that it needs a fan to suck fresh air into it's chamber (sadly, i can hear it sometimes)
@@ -91,8 +92,9 @@ If you want to use the optional ccs811 chip, you'll have to active i²c also. To
 * HEPA-Filter
   * Mine is square (17 x 17 x 6 cm)
   * I'd recomment one with four stages of filtration (Pre-Filter, HEPA-Filter, Carbon-Filter, Sterilization-Cotton)
-* Some eva feed to put the wooden box on
+* Some eva feet to put the wooden box on
 * A box to place the components in (i used wood)
+  * This is more simple than it appears. By box is basically a canal with some standoffs infront and behind the filter. This fixates the filter and the fans and also places the fans directly into the middle of the filter, because they are a bit smaller than the filter
 * Optional: CCS811 HDC1080 sensor
   * Nice way to get even more information about the air you breath in every day.
 * Optional: Breadboard
