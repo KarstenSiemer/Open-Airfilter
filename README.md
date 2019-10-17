@@ -81,6 +81,7 @@ If you want to use the optional ccs811 chip, you'll have to active i²c also. To
 ## What i have used to build this:
 * Raspberry pi 3 b+
   * This is overpowered for an airfilter, but i chose to put the whole stack on it, so it needs at least some beef
+  * This might work with any pi but i would not try the pi 1 since it has very litte cpu performance. Anything from pi 2 upwards will work, but I have only tried the 3 b+
 * Noctua NF-A14 5V PWM
   * I chose this because i do not have to change voltage to use it
   * You can use any fan of any size, just make sure that it can be used it PWM
