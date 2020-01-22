@@ -1,5 +1,5 @@
-# Open-Airfilter
-Opensource air filtering system for your home
+# DIY-Airfilter
+Opensource DIY air filtering system for your home
 
 Since i have problems with pollen in the summer, i wanted to buy an air filtering system, but failed to find one that suits my needs.
 Like being extremely silent or setting up schedules on when i want it to not run or that it should be even more silent when i want to go to sleep.
